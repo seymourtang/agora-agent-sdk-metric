@@ -82,30 +82,34 @@ function totals(daily, knownTotal = sumDaily(daily)) {
   };
 }
 
-async function latestRelease(repository) {
+async function recentReleases(repository, limit = 3) {
   try {
-    const release = await fetchJson(
-      `https://api.github.com/repos/${repository}/releases/latest`,
+    const releases = await fetchJson(
+      `https://api.github.com/repos/${repository}/releases?per_page=20`,
       { headers: githubHeaders },
     );
 
-    return {
-      tag: release.tag_name,
-      published_at: release.published_at,
-      url: release.html_url,
-      notes: release.body?.trim() || "No release notes provided.",
-    };
+    return releases
+      .filter((release) => !release.draft && release.published_at)
+      .sort((a, b) => b.published_at.localeCompare(a.published_at))
+      .slice(0, limit)
+      .map((release) => ({
+        tag: release.tag_name,
+        published_at: release.published_at,
+        url: release.html_url,
+        notes: release.body?.trim() || "No release notes provided.",
+      }));
   } catch (error) {
     console.warn(`Release lookup failed for ${repository}: ${error.message}`);
-    return null;
+    return [];
   }
 }
 
 async function collectNpm() {
-  const [metadata, packageDocument, release] = await Promise.all([
+  const [metadata, packageDocument, releases] = await Promise.all([
     fetchJson(`https://registry.npmjs.org/${NPM_PACKAGE}/latest`),
     fetchJson(`https://registry.npmjs.org/${NPM_PACKAGE}`),
-    latestRelease(repositories.npm),
+    recentReleases(repositories.npm),
   ]);
 
   const start = dateOnly(packageDocument.time.created);
@@ -132,7 +136,8 @@ async function collectNpm() {
     data_source_url: `https://api.npmjs.org/downloads/range/last-month/${NPM_PACKAGE}`,
     daily,
     totals: totals(daily),
-    release,
+    release: releases[0] || null,
+    releases,
   };
 }
 
@@ -161,10 +166,10 @@ function parsePepyProject(html) {
 }
 
 async function collectPypi() {
-  const [metadata, pepyHtml, release] = await Promise.all([
+  const [metadata, pepyHtml, releases] = await Promise.all([
     fetchJson(`https://pypi.org/pypi/${PYPI_PACKAGE}/json`),
     fetchText(`https://pepy.tech/projects/${PYPI_PACKAGE}`),
-    latestRelease(repositories.pypi),
+    recentReleases(repositories.pypi),
   ]);
   const downloads = parsePepyProject(pepyHtml);
 
@@ -181,16 +186,18 @@ async function collectPypi() {
     data_source_url: `https://pepy.tech/projects/${PYPI_PACKAGE}`,
     daily: downloads.daily,
     totals: totals(downloads.daily, downloads.total),
-    release,
+    release: releases[0] || null,
+    releases,
   };
 }
 
 async function collectGo() {
-  const [history, latest, release] = await Promise.all([
+  const [history, latest, releases] = await Promise.all([
     readFile(GO_HISTORY_FILE, "utf8").then(JSON.parse),
     readFile(GO_LATEST_FILE, "utf8").then(JSON.parse),
-    latestRelease(repositories.go),
+    recentReleases(repositories.go),
   ]);
+  const release = releases[0] || null;
   const daily = history.daily.map(({ date, count }) => ({ date, count }));
 
   return {
@@ -208,6 +215,7 @@ async function collectGo() {
     totals: totals(daily),
     unique_cloners_14_days: latest.uniques,
     release,
+    releases,
   };
 }
 

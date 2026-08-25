@@ -124,20 +124,68 @@ function escapeHtml(value = "") {
     .replaceAll("'", "&#039;");
 }
 
-function releaseNoteHtml(notes) {
-  const lines = notes
-    .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean);
-  const heading = lines.find((line) => line.startsWith("### "))?.slice(4);
-  const body = lines.find((line) => line.startsWith("- "))?.slice(2)
-    || lines.find((line) => !line.startsWith("#"))
-    || "No release notes provided.";
-  let safeBody = escapeHtml(body)
+function inlineMarkdown(value) {
+  return escapeHtml(value)
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/`(.+?)`/g, "<code>$1</code>");
-  if (heading) safeBody = `<strong>${escapeHtml(heading)}.</strong> ${safeBody}`;
-  return safeBody;
+}
+
+function releaseExcerpt(notes) {
+  const line = notes
+    .split("\n")
+    .map((item) => item.trim())
+    .find((item) => item && !item.startsWith("#"))
+    || "No release notes provided.";
+  const clean = line
+    .replace(/^[-*]\s+/, "")
+    .replace(/^\d+\.\s+/, "")
+    .replace(/[*_`]/g, "");
+  return clean.length > 112 ? `${clean.slice(0, 109)}...` : clean;
+}
+
+function releaseNotesHtml(notes) {
+  const lines = notes.split("\n");
+  const output = [];
+  let listType = null;
+
+  const closeList = () => {
+    if (listType) output.push(`</${listType}>`);
+    listType = null;
+  };
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line) {
+      closeList();
+      continue;
+    }
+
+    const heading = line.match(/^#{1,4}\s+(.+)$/);
+    if (heading) {
+      closeList();
+      output.push(`<h4>${inlineMarkdown(heading[1])}</h4>`);
+      continue;
+    }
+
+    const unordered = line.match(/^[-*]\s+(.+)$/);
+    const ordered = line.match(/^\d+\.\s+(.+)$/);
+    if (unordered || ordered) {
+      const nextListType = ordered ? "ol" : "ul";
+      if (listType !== nextListType) {
+        closeList();
+        listType = nextListType;
+        output.push(`<${listType}>`);
+      }
+      output.push(`<li>${inlineMarkdown((unordered || ordered)[1])}</li>`);
+      continue;
+    }
+
+    closeList();
+    output.push(`<p>${inlineMarkdown(line)}</p>`);
+  }
+
+  closeList();
+  return output.join("") || "<p>No release notes provided.</p>";
 }
 
 function renderMetricCards(sdks) {
@@ -287,28 +335,50 @@ function renderWeeklyChart(sdks) {
 }
 
 function renderReleases(sdks) {
-  document.querySelector("#releaseCount").textContent = `${sdks.length} CHANNELS`;
+  const releaseCount = sdks.reduce(
+    (total, sdk) => total + (sdk.releases?.length || (sdk.release ? 1 : 0)),
+    0,
+  );
+  document.querySelector("#releaseCount").textContent = `${releaseCount} RELEASES`;
   document.querySelector("#releaseList").innerHTML = sdks
     .map((sdk) => {
       const theme = sdkTheme(sdk.id);
-      const release = sdk.release;
+      const releases = sdk.releases?.length
+        ? sdk.releases
+        : (sdk.release ? [sdk.release] : []);
       return `
-        <article class="release-row">
-          <div class="release-meta">
+        <article class="release-stream" style="--sdk-color:${theme.color}">
+          <header class="release-stream-header">
+            <div class="release-meta">
             <span class="sdk-logo"><img src="${theme.logo}" alt="${escapeHtml(sdk.platform)} logo" /></span>
             <div>
               <h3>${escapeHtml(sdk.name)}</h3>
-              <p>${release ? formatDate(release.published_at) : "NO RELEASE"}</p>
+                <p>${escapeHtml(sdk.platform)} RELEASE STREAM</p>
+              </div>
             </div>
-          </div>
-          <div class="release-note">
-            <p>${releaseNoteHtml(release?.notes || "No release notes provided.")}</p>
-          </div>
-          <div class="release-actions">
-            <span class="release-tag">${escapeHtml(release?.tag || sdk.version)}</span>
-            <a class="external-link" href="${release?.url || sdk.repository_url}" target="_blank" rel="noreferrer" aria-label="Open release" title="Open release">
-              <i data-lucide="arrow-up-right"></i>
-            </a>
+            <span class="stream-count">${String(releases.length).padStart(2, "0")}</span>
+          </header>
+          <div class="release-entries">
+            ${releases.map((release, index) => `
+              <details class="release-entry" ${index === 0 ? "open" : ""}>
+                <summary>
+                  <span class="release-summary-line">
+                    <span class="release-tag">${escapeHtml(release.tag)}</span>
+                    ${index === 0 ? '<span class="latest-flag">LATEST</span>' : ""}
+                    <time>${formatDate(release.published_at)}</time>
+                    <span class="release-chevron"><i data-lucide="chevron-down"></i></span>
+                  </span>
+                  <span class="release-excerpt">${escapeHtml(releaseExcerpt(release.notes))}</span>
+                </summary>
+                <div class="release-body">
+                  ${releaseNotesHtml(release.notes)}
+                  <a class="release-link" href="${release.url}" target="_blank" rel="noreferrer">
+                    <i data-lucide="arrow-up-right"></i>
+                    View on GitHub
+                  </a>
+                </div>
+              </details>
+            `).join("") || '<p class="no-releases">No published releases.</p>'}
           </div>
         </article>
       `;

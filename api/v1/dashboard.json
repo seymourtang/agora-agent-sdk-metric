@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-25T09:52:09.010Z",
+  "generated_at": "2026-08-25T09:55:16.376Z",
   "timezone": "UTC",
   "sdks": [
     {
@@ -378,7 +378,27 @@
         "published_at": "2026-08-21T14:12:26Z",
         "url": "https://github.com/AgoraIO/agora-agents-ts/releases/tag/v2.6.1",
         "notes": "### Fixed\n\n- **Speechmatics credential field** — `SpeechmaticsSTT` now emits the REST-compatible `asr.params.key`. The `key` option is preferred; deprecated `apiKey` remains supported and is normalized to `key`."
-      }
+      },
+      "releases": [
+        {
+          "tag": "v2.6.1",
+          "published_at": "2026-08-21T14:12:26Z",
+          "url": "https://github.com/AgoraIO/agora-agents-ts/releases/tag/v2.6.1",
+          "notes": "### Fixed\n\n- **Speechmatics credential field** — `SpeechmaticsSTT` now emits the REST-compatible `asr.params.key`. The `key` option is preferred; deprecated `apiKey` remains supported and is normalized to `key`."
+        },
+        {
+          "tag": "v2.6.0",
+          "published_at": "2026-08-11T02:28:43Z",
+          "url": "https://github.com/AgoraIO/agora-agents-ts/releases/tag/v2.6.0",
+          "notes": "### Added\n\n- **Azure OpenAI Realtime MLLM** — `AzureOpenAIRealtime` emits `mllm.vendor: \"azure\"` and supports `maxHistory`, serialized as the new `max_history` field on the MLLM config.\n- **Qwen Omni Realtime MLLM (Chinese mainland)** — `QwenOmni` emits `mllm.vendor: \"qwen_omni\"`, alongside the new `BaseCNMLLM` base class and `GlobalMllmVendor` / `CNMllmVendor` region types. `Agent.withMllm()` now accepts `GlobalMllmVendor | CNMllmVendor` instead of `BaseMLLM`, so region mismatches are caught at compile time.\n- **Typecast TTS** — `TypecastTTS` vendor taking `apiKey`, `voiceId`, and `model`, with generated `TypecastTts` / `TypecastTtsParams` core types.\n- **ASR hotwords** — `keywords` on `AresSTT` and on `FengmingSTT` via the new `FengmingSTTOptions`, serialized as `asr.params.keywords`.\n- **Configurable API base URL** — setting `AGORA_AGENTS_API_BASE_URL` pins `AgoraClient` to that host (with the area-appropriate API path appended) and opts the client out of regional failover.\n\n### Changed\n\n- **AssemblyAI STT WebSocket URL** — `AssemblyAISTTOptions.uri` is renamed to `ws_url` and now serializes as `asr.params.ws_url`. This is a breaking rename; callers passing `uri` must update the option name.\n- **Qwen Omni options** — `url` is required and `turnDetection` is optional on `QwenOmniOptions`.\n- **Generated core refresh** — regenerated from the latest API schema (`fern-typescript-node-sdk` 3.31.1), typing `FengmingAsr.params` and `AresAsrParams` instead of leaving them as open records."
+        },
+        {
+          "tag": "v2.5.0",
+          "published_at": "2026-07-30T16:42:57Z",
+          "url": "https://github.com/AgoraIO/agora-agents-ts/releases/tag/v2.5.0",
+          "notes": "Release v2.5.0"
+        }
+      ]
     },
     {
       "id": "pypi",
@@ -759,7 +779,27 @@
         "published_at": "2026-08-21T14:28:19Z",
         "url": "https://github.com/AgoraIO/agora-agents-python/releases/tag/v2.6.1",
         "notes": "### Fixed\n\n- **Speechmatics credential field** — `SpeechmaticsSTT` now emits the REST-compatible `asr.params.key`. The `key` field is preferred; deprecated `api_key` remains supported, warns, and is normalized to `key`."
-      }
+      },
+      "releases": [
+        {
+          "tag": "v2.6.1",
+          "published_at": "2026-08-21T14:28:19Z",
+          "url": "https://github.com/AgoraIO/agora-agents-python/releases/tag/v2.6.1",
+          "notes": "### Fixed\n\n- **Speechmatics credential field** — `SpeechmaticsSTT` now emits the REST-compatible `asr.params.key`. The `key` field is preferred; deprecated `api_key` remains supported, warns, and is normalized to `key`."
+        },
+        {
+          "tag": "v2.6.0",
+          "published_at": "2026-08-11T02:13:18Z",
+          "url": "https://github.com/AgoraIO/agora-agents-python/releases/tag/v2.6.0",
+          "notes": "### Added\n\n- **Azure OpenAI Realtime MLLM** — `AzureOpenAIRealtime` (`mllm.vendor`: `azure`), including `max_history` for caching conversation history messages.\n- **Qwen Omni Realtime MLLM (CN)** — `QwenOmni` (`mllm.vendor`: `qwen_omni`), exported from `agora_agent.cn`.\n- **MLLM support in AgentKit vendor namespaces** — Global and CN vendor catalogs now expose an `mllm` namespace, MLLM vendors are validated against the client area, and `CNAgent`/`GlobalAgent` expose typed `with_mllm()`.\n- **Typecast TTS** — `TypecastTTS` (`tts.vendor`: `typecast`).\n- **ASR hotwords** — `keywords` on `AresSTT` and `FengmingSTT`, serialized as `asr.params.keywords`, with a typed `FengmingAsrParams` model replacing the untyped Fengming params dict.\n- **Configurable API base URL** — Setting `AGORA_AGENTS_API_BASE_URL` overrides regional domain selection; when set, the domain pool skips DNS-based domain selection and region cycling and always uses the configured base URL.\n\n### Changed\n\n- **AssemblyAI STT WebSocket URL** — `AssemblyAISTT.uri` and `AssemblyAiAsrParams.uri` are renamed to `ws_url`, and the field is serialized as `asr.params.ws_url`. This is a breaking rename for callers that set `uri`.\n- **Generated model aliasing** — Wire-key aliases (`VoiceSelectionParams`, `AudioConfig`, `voiceId`, `modelId`, `appId`, `sceneList`) now use native pydantic field aliases with population by field name, instead of annotation-metadata conversion on every request and response."
+        },
+        {
+          "tag": "v2.5.0",
+          "published_at": "2026-07-30T16:44:31Z",
+          "url": "https://github.com/AgoraIO/agora-agents-python/releases/tag/v2.5.0",
+          "notes": "Release v2.5.0"
+        }
+      ]
     },
     {
       "id": "go",
@@ -841,7 +881,27 @@
         "published_at": "2026-08-21T13:22:06Z",
         "url": "https://github.com/AgoraIO/agora-agents-go/releases/tag/v2.6.1",
         "notes": "### Fixed\n\n- **Speechmatics credential field** — `SpeechmaticsSTT` now emits the REST-compatible `asr.params.key`. `SpeechmaticsSTTOptions.Key` is preferred; the deprecated `APIKey` field remains supported and is normalized to `key`."
-      }
+      },
+      "releases": [
+        {
+          "tag": "v2.6.1",
+          "published_at": "2026-08-21T13:22:06Z",
+          "url": "https://github.com/AgoraIO/agora-agents-go/releases/tag/v2.6.1",
+          "notes": "### Fixed\n\n- **Speechmatics credential field** — `SpeechmaticsSTT` now emits the REST-compatible `asr.params.key`. `SpeechmaticsSTTOptions.Key` is preferred; the deprecated `APIKey` field remains supported and is normalized to `key`."
+        },
+        {
+          "tag": "v2.6.0",
+          "published_at": "2026-08-11T02:15:01Z",
+          "url": "https://github.com/AgoraIO/agora-agents-go/releases/tag/v2.6.0",
+          "notes": "### Added\n\n- **Azure OpenAI Realtime MLLM** — `vendors.NewAzureOpenAIRealtime` configures Azure-hosted realtime sessions (`mllm.vendor`: `\"azure\"`) with model, voice, instructions, output modalities, and greeting support.\n- **Qwen Omni MLLM (mainland China)** — `cn/vendors.NewQwenOmni` (`mllm.vendor`: `\"qwen_omni\"`), plus `cn.Agent.WithMllm` and the `cn/vendors.MLLM` alias, so mainland China agents can run realtime MLLM pipelines.\n- **Typecast TTS** — `vendors.NewTypecastTTS` (`tts.vendor`: `\"typecast\"`) with `SkipPatterns` and passthrough `AdditionalParams`.\n- **Ares ASR** — `vendors.NewAresSTT`, the Agora-managed global ASR provider, with optional `Keywords` hints.\n- **Fengming keyword hints** — `cn/vendors.NewFengmingSTT` now accepts an optional `FengmingSTTOptions` with `Keywords` and `AdditionalParams`; the existing no-argument call still works.\n- **Configurable API base URL** — Setting `AGORA_AGENTS_API_BASE_URL` pins the client to a fixed base URL, bypassing DNS-based domain selection and region cycling. The area-specific Conversational AI path suffix is still appended.\n\n### Changed\n\n- **AssemblyAI ASR** — `AssemblyAISTTOptions.URI` is renamed to `WsURL` and now serializes as `asr.params.ws_url` instead of `asr.params.uri`. Callers setting `URI` must rename the field.\n- **Generated core refresh** — Regenerated core types for the latest Conversational AI schema, adding `AresAsrParams`, `FengmingAsrParams`, `TypecastTts`, and the `azure` and `qwen_omni` MLLM vendors.\n- **MLLM routing docs** — `docs/guides/regional-routing.md` documents the MLLM package boundary: the global Azure constructor belongs to the global `agentkit` client and Qwen Omni to the `agentkit/cn` facade."
+        },
+        {
+          "tag": "v2.5.0",
+          "published_at": "2026-07-30T16:43:29Z",
+          "url": "https://github.com/AgoraIO/agora-agents-go/releases/tag/v2.5.0",
+          "notes": "Release v2.5.0"
+        }
+      ]
     }
   ]
 }
