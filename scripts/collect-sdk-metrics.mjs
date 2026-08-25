@@ -29,7 +29,7 @@ async function fetchResponse(url, options = {}, attempts = 3) {
       const response = await fetch(url, {
         ...options,
         headers: {
-          "User-Agent": "agora-agent-sdk-metric/1.0",
+          "User-Agent": "agora-agents-sdk-metric/1.0",
           ...options.headers,
         },
       });

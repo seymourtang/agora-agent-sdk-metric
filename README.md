@@ -6,7 +6,7 @@ collected by GitHub Actions and published as a static dashboard.
 ## Dashboard
 
 ```text
-https://seymourtang.github.io/agora-agent-sdk-metric/
+https://seymourtang.github.io/agora-agents-sdk-metric/
 ```
 
 ## Public API
@@ -14,26 +14,26 @@ https://seymourtang.github.io/agora-agent-sdk-metric/
 Latest 14-day GitHub clone traffic:
 
 ```text
-https://raw.githubusercontent.com/seymourtang/agora-agent-sdk-metric/main/api/v1/packages/agora-agents-go/clones/latest.json
+https://raw.githubusercontent.com/seymourtang/agora-agents-sdk-metric/main/api/v1/packages/agora-agents-go/clones/latest.json
 ```
 
 Daily history retained by this repository:
 
 ```text
-https://raw.githubusercontent.com/seymourtang/agora-agent-sdk-metric/main/api/v1/packages/agora-agents-go/clones/daily.json
+https://raw.githubusercontent.com/seymourtang/agora-agents-sdk-metric/main/api/v1/packages/agora-agents-go/clones/daily.json
 ```
 
 Unified dashboard data for npm, PyPI, and Go:
 
 ```text
-https://raw.githubusercontent.com/seymourtang/agora-agent-sdk-metric/main/api/v1/dashboard.json
+https://raw.githubusercontent.com/seymourtang/agora-agents-sdk-metric/main/api/v1/dashboard.json
 ```
 
 Example:
 
 ```bash
 curl -sS \
-  https://raw.githubusercontent.com/seymourtang/agora-agent-sdk-metric/main/api/v1/packages/agora-agents-go/clones/latest.json \
+  https://raw.githubusercontent.com/seymourtang/agora-agents-sdk-metric/main/api/v1/packages/agora-agents-go/clones/latest.json \
   | jq
 ```
 
