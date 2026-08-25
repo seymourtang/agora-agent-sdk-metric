@@ -1,0 +1,44 @@
+name: Collect SDK metrics
+
+on:
+  schedule:
+    # 01:15 UTC is 09:15 in Asia/Shanghai.
+    - cron: "15 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collect-sdk-metrics
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.TRAFFIC_TOKEN }}
+      TARGET_REPOSITORY: AgoraIO/agora-agents-go
+
+    steps:
+      - name: Check out metrics repository
+        uses: actions/checkout@v4
+
+      - name: Collect GitHub clone traffic
+        run: ./scripts/collect-github-clones.sh
+
+      - name: Commit updated metrics
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -z "$(git status --porcelain -- api)" ]]; then
+            echo "No metric changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add api
+          git commit -m "chore: collect SDK metrics"
+          git push
