@@ -9,6 +9,21 @@
     />
     <meta name="theme-color" content="#0a0c0e" />
     <title>Agora Agent SDK Metrics</title>
+    <script>
+      (() => {
+        try {
+          const mode = localStorage.getItem("sdk-metric-theme") || "auto";
+          const resolved = mode === "auto"
+            ? (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark")
+            : mode;
+          document.documentElement.dataset.theme = resolved;
+          document.documentElement.dataset.themeMode = mode;
+        } catch {
+          document.documentElement.dataset.theme = "dark";
+          document.documentElement.dataset.themeMode = "auto";
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="./assets/styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js" defer></script>
     <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
@@ -28,6 +43,15 @@
 
       <div class="topbar-actions">
         <span class="system-status"><i></i> DAILY SYNC</span>
+        <button
+          class="icon-button theme-toggle"
+          id="themeToggle"
+          type="button"
+          aria-label="Theme: Auto"
+          title="Theme: Auto"
+        >
+          <i data-lucide="monitor"></i>
+        </button>
         <a
           class="icon-button"
           href="https://github.com/seymourtang/agora-agent-sdk-metric"

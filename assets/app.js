@@ -1,17 +1,17 @@
 const SDK_THEME = {
   npm: {
-    color: "#cb3837",
-    logo: "https://cdn.simpleicons.org/npm/CB3837",
+    logo: "npm",
   },
   pypi: {
-    color: "#ffd343",
-    logo: "https://cdn.simpleicons.org/pypi/FFD343",
+    logo: "pypi",
   },
   go: {
-    color: "#00add8",
-    logo: "https://cdn.simpleicons.org/go/00ADD8",
+    logo: "go",
   },
 };
+
+const THEME_MODES = ["auto", "light", "dark"];
+const themeMedia = matchMedia("(prefers-color-scheme: light)");
 
 const compactNumber = new Intl.NumberFormat("en", {
   notation: "compact",
@@ -22,6 +22,80 @@ const fullNumber = new Intl.NumberFormat("en-US");
 let dashboardData;
 let dailyChart;
 let weeklyChart;
+
+function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+function sdkTheme(id) {
+  const color = cssVar(`--${id}`);
+  return {
+    color,
+    logo: `https://cdn.simpleicons.org/${SDK_THEME[id].logo}/${color.replace("#", "")}`,
+  };
+}
+
+function storedThemeMode() {
+  try {
+    const mode = localStorage.getItem("sdk-metric-theme") || "auto";
+    return THEME_MODES.includes(mode) ? mode : "auto";
+  } catch {
+    return "auto";
+  }
+}
+
+function resolvedTheme(mode) {
+  return mode === "auto" ? (themeMedia.matches ? "light" : "dark") : mode;
+}
+
+function updateThemeButton(mode) {
+  const button = document.querySelector("#themeToggle");
+  const icons = { auto: "monitor", light: "sun", dark: "moon" };
+  const label = `Theme: ${mode[0].toUpperCase()}${mode.slice(1)}`;
+  button.dataset.mode = mode;
+  button.setAttribute("aria-label", label);
+  button.title = label;
+  button.innerHTML = `<i data-lucide="${icons[mode]}"></i>`;
+}
+
+function renderThemeAwareContent() {
+  if (!dashboardData) return;
+  const activeRange = document.querySelector("[data-range].active")?.dataset.range || "30";
+  renderMetricCards(dashboardData.sdks);
+  renderLegend(dashboardData.sdks);
+  renderDailyChart(dashboardData.sdks, activeRange);
+  renderWeeklyChart(dashboardData.sdks);
+  renderReleases(dashboardData.sdks);
+}
+
+function applyTheme(mode, persist = true) {
+  document.documentElement.dataset.theme = resolvedTheme(mode);
+  document.documentElement.dataset.themeMode = mode;
+  document.querySelector('meta[name="theme-color"]').content = cssVar("--bg");
+  if (persist) {
+    try {
+      localStorage.setItem("sdk-metric-theme", mode);
+    } catch {
+      // The selected theme still applies for the current page session.
+    }
+  }
+  updateThemeButton(mode);
+  renderThemeAwareContent();
+  lucide.createIcons();
+}
+
+function initializeTheme() {
+  let mode = storedThemeMode();
+  applyTheme(mode, false);
+  document.querySelector("#themeToggle").addEventListener("click", () => {
+    const currentIndex = THEME_MODES.indexOf(mode);
+    mode = THEME_MODES[(currentIndex + 1) % THEME_MODES.length];
+    applyTheme(mode);
+  });
+  themeMedia.addEventListener("change", () => {
+    if (mode === "auto") applyTheme(mode, false);
+  });
+}
 
 function formatDate(value, includeTime = false) {
   const options = includeTime
@@ -72,7 +146,7 @@ function renderMetricCards(sdks) {
   container.replaceChildren();
 
   for (const sdk of sdks) {
-    const theme = SDK_THEME[sdk.id];
+    const theme = sdkTheme(sdk.id);
     const card = template.content.firstElementChild.cloneNode(true);
     const trend = trendFor(sdk.daily);
     card.style.setProperty("--sdk-color", theme.color);
@@ -101,8 +175,8 @@ function chartDatasets(sdks, labels, fill = false) {
     return {
       label: sdk.name,
       data: labels.map((date) => values.get(date) ?? null),
-      borderColor: SDK_THEME[sdk.id].color,
-      backgroundColor: SDK_THEME[sdk.id].color,
+      borderColor: sdkTheme(sdk.id).color,
+      backgroundColor: sdkTheme(sdk.id).color,
       borderWidth: 2,
       pointRadius: labels.length <= 7 ? 3 : 0,
       pointHoverRadius: 5,
@@ -121,11 +195,11 @@ function baseChartOptions() {
     plugins: {
       legend: { display: false },
       tooltip: {
-        backgroundColor: "#171b1f",
-        borderColor: "#3b464c",
+        backgroundColor: cssVar("--tooltip-bg"),
+        borderColor: cssVar("--border-strong"),
         borderWidth: 1,
-        titleColor: "#eff4f2",
-        bodyColor: "#c4ccca",
+        titleColor: cssVar("--text"),
+        bodyColor: cssVar("--tooltip-body"),
         padding: 12,
         callbacks: {
           label: (context) => ` ${context.dataset.label}: ${fullNumber.format(context.raw ?? 0)}`,
@@ -135,9 +209,9 @@ function baseChartOptions() {
     scales: {
       x: {
         grid: { display: false },
-        border: { color: "#293036" },
+        border: { color: cssVar("--border") },
         ticks: {
-          color: "#707b78",
+          color: cssVar("--chart-muted"),
           font: { family: "SFMono-Regular, Consolas, monospace", size: 9 },
           maxRotation: 0,
           autoSkipPadding: 20,
@@ -148,10 +222,10 @@ function baseChartOptions() {
       },
       y: {
         beginAtZero: true,
-        grid: { color: "rgba(59, 70, 76, 0.38)" },
+        grid: { color: cssVar("--chart-grid") },
         border: { display: false },
         ticks: {
-          color: "#707b78",
+          color: cssVar("--chart-muted"),
           padding: 8,
           font: { family: "SFMono-Regular, Consolas, monospace", size: 9 },
           callback: (value) => compactNumber.format(value),
@@ -164,7 +238,7 @@ function baseChartOptions() {
 function renderLegend(sdks) {
   document.querySelector("#dailyLegend").innerHTML = sdks
     .map((sdk) => `
-      <span class="legend-item" style="--legend-color:${SDK_THEME[sdk.id].color}">
+      <span class="legend-item" style="--legend-color:${sdkTheme(sdk.id).color}">
         <i></i>${escapeHtml(sdk.name)} / ${escapeHtml(sdk.metric_label)}
       </span>
     `)
@@ -186,7 +260,7 @@ function renderWeeklyChart(sdks) {
   const options = baseChartOptions();
   options.scales.x.stacked = false;
   options.scales.y.ticks.display = false;
-  options.scales.y.grid.color = "rgba(59, 70, 76, 0.26)";
+  options.scales.y.grid.color = cssVar("--chart-grid-soft");
   weeklyChart?.destroy();
   weeklyChart = new Chart(document.querySelector("#weeklyChart"), {
     type: "bar",
@@ -204,7 +278,7 @@ function renderWeeklyChart(sdks) {
 
   document.querySelector("#pulseSummary").innerHTML = sdks
     .map((sdk) => `
-      <div class="pulse-item" style="--sdk-color:${SDK_THEME[sdk.id].color}">
+      <div class="pulse-item" style="--sdk-color:${sdkTheme(sdk.id).color}">
         <strong>${compactNumber.format(sdk.totals.last_7_days)}</strong>
         <span>${escapeHtml(sdk.platform)} / 7D</span>
       </div>
@@ -216,7 +290,7 @@ function renderReleases(sdks) {
   document.querySelector("#releaseCount").textContent = `${sdks.length} CHANNELS`;
   document.querySelector("#releaseList").innerHTML = sdks
     .map((sdk) => {
-      const theme = SDK_THEME[sdk.id];
+      const theme = sdkTheme(sdk.id);
       const release = sdk.release;
       return `
         <article class="release-row">
@@ -255,6 +329,7 @@ function bindRangeControls(sdks) {
 async function initialize() {
   const loading = document.querySelector("#loadingState");
   try {
+    initializeTheme();
     const response = await fetch(`./api/v1/dashboard.json?v=${Date.now()}`);
     if (!response.ok) throw new Error(`API returned ${response.status}`);
     dashboardData = await response.json();
