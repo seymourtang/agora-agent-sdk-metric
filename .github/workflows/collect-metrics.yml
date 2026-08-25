@@ -1,5 +1,7 @@
 name: Collect SDK metrics
 
+# The source Traffic API exposes a rolling 14-day window.
+
 on:
   schedule:
     # 01:15 UTC is 09:15 in Asia/Shanghai.
