@@ -6,7 +6,7 @@ collected by GitHub Actions and published as a static dashboard.
 ## Dashboard
 
 ```text
-https://mxvar.dev/agora-agent-sdk-metric/
+https://seymourtang.github.io/agora-agent-sdk-metric/
 ```
 
 ## Public API
