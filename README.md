@@ -1,6 +1,13 @@
 # Agora Agent SDK Metrics
 
-Daily metrics for Agora Agent SDK repositories, collected by GitHub Actions.
+Daily download, clone, version, and release telemetry for Agora Agent SDKs,
+collected by GitHub Actions and published as a static dashboard.
+
+## Dashboard
+
+```text
+https://seymourtang.github.io/agora-agent-sdk-metric/
+```
 
 ## Public API
 
@@ -16,6 +23,12 @@ Daily history retained by this repository:
 https://raw.githubusercontent.com/seymourtang/agora-agent-sdk-metric/main/api/v1/packages/agora-agents-go/clones/daily.json
 ```
 
+Unified dashboard data for npm, PyPI, and Go:
+
+```text
+https://raw.githubusercontent.com/seymourtang/agora-agent-sdk-metric/main/api/v1/dashboard.json
+```
+
 Example:
 
 ```bash
@@ -24,7 +37,12 @@ curl -sS \
   | jq
 ```
 
-## Metric definition
+## Metric definitions
+
+- npm uses the official npm downloads API.
+- PyPI download events are aggregated by pepy.tech from PyPI data.
+- Go uses GitHub repository clone traffic because public Go module proxies do
+  not publish package download counts.
 
 The `clones` metric comes from GitHub's repository traffic API. It measures
 repository clones and does not include downloads served from public Go module

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Daily download, clone, version, and release telemetry for Agora Agent SDKs."
+    />
+    <meta name="theme-color" content="#0a0c0e" />
+    <title>Agora Agent SDK Metrics</title>
+    <link rel="stylesheet" href="./assets/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js" defer></script>
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
+    <script src="./assets/app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Agora SDK Metrics home">
+        <span class="brand-mark" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+        <span class="brand-copy">
+          <strong>AGORA SDK</strong>
+          <small>METRIC CONSOLE</small>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <span class="system-status"><i></i> DAILY SYNC</span>
+        <a
+          class="icon-button"
+          href="https://github.com/seymourtang/agora-agent-sdk-metric"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Open GitHub repository"
+          title="Open GitHub repository"
+        >
+          <i data-lucide="github"></i>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-heading">
+        <div>
+          <p class="eyebrow">PACKAGE TELEMETRY / UTC</p>
+          <h1>Agent SDK activity</h1>
+        </div>
+        <div class="sync-meta">
+          <span>LAST INGEST</span>
+          <time id="lastUpdated">--</time>
+        </div>
+      </section>
+
+      <section class="metric-grid" id="metricCards" aria-label="SDK totals"></section>
+
+      <section class="chart-grid" aria-label="Download trends">
+        <article class="panel daily-panel">
+          <header class="panel-header">
+            <div>
+              <p class="panel-kicker">TIMESERIES / DAILY</p>
+              <h2>Daily volume</h2>
+            </div>
+            <div class="segmented" role="group" aria-label="Daily chart range">
+              <button type="button" data-range="7">7D</button>
+              <button type="button" data-range="30" class="active">30D</button>
+              <button type="button" data-range="all">ALL</button>
+            </div>
+          </header>
+          <div class="chart-legend" id="dailyLegend"></div>
+          <div class="chart-frame chart-frame-large">
+            <canvas id="dailyChart" aria-label="Daily SDK activity chart"></canvas>
+          </div>
+        </article>
+
+        <article class="panel pulse-panel">
+          <header class="panel-header">
+            <div>
+              <p class="panel-kicker">ROLLING WINDOW</p>
+              <h2>7-day pulse</h2>
+            </div>
+            <i class="panel-icon" data-lucide="activity" aria-hidden="true"></i>
+          </header>
+          <div class="pulse-summary" id="pulseSummary"></div>
+          <div class="chart-frame chart-frame-small">
+            <canvas id="weeklyChart" aria-label="Seven-day SDK activity chart"></canvas>
+          </div>
+        </article>
+      </section>
+
+      <section class="release-section">
+        <header class="section-header">
+          <div>
+            <p class="panel-kicker">REGISTRY / RELEASE FEED</p>
+            <h2>Latest releases</h2>
+          </div>
+          <span class="release-count" id="releaseCount">-- CHANNELS</span>
+        </header>
+        <div class="release-list" id="releaseList"></div>
+      </section>
+
+      <footer>
+        <p>
+          npm uses the official downloads API. PyPI uses pepy.tech's PyPI event
+          aggregation. Go reports GitHub repository clones because public Go
+          module proxies do not expose download counts.
+        </p>
+        <span>SCHEMA V1</span>
+      </footer>
+    </main>
+
+    <div class="loading-state" id="loadingState" role="status">
+      <div class="loader-grid" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <p>READING TELEMETRY</p>
+    </div>
+
+    <template id="metricCardTemplate">
+      <article class="metric-card">
+        <header>
+          <div class="sdk-identity">
+            <span class="sdk-logo"><img alt="" /></span>
+            <div>
+              <p class="sdk-platform"></p>
+              <h2 class="sdk-name"></h2>
+            </div>
+          </div>
+          <a class="external-link" target="_blank" rel="noreferrer" aria-label="Open package">
+            <i data-lucide="arrow-up-right"></i>
+          </a>
+        </header>
+        <div class="metric-total">
+          <strong></strong>
+          <span class="metric-label"></span>
+        </div>
+        <div class="metric-footer">
+          <span class="version-chip"></span>
+          <span class="trend-value"></span>
+        </div>
+      </article>
+    </template>
+  </body>
+</html>

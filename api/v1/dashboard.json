@@ -1,0 +1,851 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-25T09:17:45.385Z",
+  "timezone": "UTC",
+  "sdks": [
+    {
+      "id": "npm",
+      "name": "TypeScript SDK",
+      "platform": "npm",
+      "package": "agora-agents",
+      "metric": "downloads",
+      "metric_label": "Downloads",
+      "version": "2.6.1",
+      "package_url": "https://www.npmjs.com/package/agora-agents",
+      "repository_url": "https://github.com/AgoraIO/agora-agents-ts",
+      "data_source_url": "https://api.npmjs.org/downloads/range/last-month/agora-agents",
+      "daily": [
+        {
+          "date": "2026-05-28",
+          "count": 272
+        },
+        {
+          "date": "2026-05-29",
+          "count": 22
+        },
+        {
+          "date": "2026-05-30",
+          "count": 19
+        },
+        {
+          "date": "2026-05-31",
+          "count": 24
+        },
+        {
+          "date": "2026-06-01",
+          "count": 4
+        },
+        {
+          "date": "2026-06-02",
+          "count": 15
+        },
+        {
+          "date": "2026-06-03",
+          "count": 259
+        },
+        {
+          "date": "2026-06-04",
+          "count": 45
+        },
+        {
+          "date": "2026-06-05",
+          "count": 0
+        },
+        {
+          "date": "2026-06-06",
+          "count": 22
+        },
+        {
+          "date": "2026-06-07",
+          "count": 24
+        },
+        {
+          "date": "2026-06-08",
+          "count": 11
+        },
+        {
+          "date": "2026-06-09",
+          "count": 10
+        },
+        {
+          "date": "2026-06-10",
+          "count": 16
+        },
+        {
+          "date": "2026-06-11",
+          "count": 5
+        },
+        {
+          "date": "2026-06-12",
+          "count": 23
+        },
+        {
+          "date": "2026-06-13",
+          "count": 5
+        },
+        {
+          "date": "2026-06-14",
+          "count": 7
+        },
+        {
+          "date": "2026-06-15",
+          "count": 16
+        },
+        {
+          "date": "2026-06-16",
+          "count": 21
+        },
+        {
+          "date": "2026-06-17",
+          "count": 145
+        },
+        {
+          "date": "2026-06-18",
+          "count": 97
+        },
+        {
+          "date": "2026-06-19",
+          "count": 30
+        },
+        {
+          "date": "2026-06-20",
+          "count": 19
+        },
+        {
+          "date": "2026-06-21",
+          "count": 19
+        },
+        {
+          "date": "2026-06-22",
+          "count": 73
+        },
+        {
+          "date": "2026-06-23",
+          "count": 20
+        },
+        {
+          "date": "2026-06-24",
+          "count": 7
+        },
+        {
+          "date": "2026-06-25",
+          "count": 15
+        },
+        {
+          "date": "2026-06-26",
+          "count": 18
+        },
+        {
+          "date": "2026-06-27",
+          "count": 5
+        },
+        {
+          "date": "2026-06-28",
+          "count": 4
+        },
+        {
+          "date": "2026-06-29",
+          "count": 4
+        },
+        {
+          "date": "2026-06-30",
+          "count": 140
+        },
+        {
+          "date": "2026-07-01",
+          "count": 0
+        },
+        {
+          "date": "2026-07-02",
+          "count": 29
+        },
+        {
+          "date": "2026-07-03",
+          "count": 19
+        },
+        {
+          "date": "2026-07-04",
+          "count": 4
+        },
+        {
+          "date": "2026-07-05",
+          "count": 0
+        },
+        {
+          "date": "2026-07-06",
+          "count": 31
+        },
+        {
+          "date": "2026-07-07",
+          "count": 37
+        },
+        {
+          "date": "2026-07-08",
+          "count": 11
+        },
+        {
+          "date": "2026-07-09",
+          "count": 112
+        },
+        {
+          "date": "2026-07-10",
+          "count": 14
+        },
+        {
+          "date": "2026-07-11",
+          "count": 70
+        },
+        {
+          "date": "2026-07-12",
+          "count": 0
+        },
+        {
+          "date": "2026-07-13",
+          "count": 7
+        },
+        {
+          "date": "2026-07-14",
+          "count": 18
+        },
+        {
+          "date": "2026-07-15",
+          "count": 5
+        },
+        {
+          "date": "2026-07-16",
+          "count": 58
+        },
+        {
+          "date": "2026-07-17",
+          "count": 34
+        },
+        {
+          "date": "2026-07-18",
+          "count": 13
+        },
+        {
+          "date": "2026-07-19",
+          "count": 1
+        },
+        {
+          "date": "2026-07-20",
+          "count": 13
+        },
+        {
+          "date": "2026-07-21",
+          "count": 23
+        },
+        {
+          "date": "2026-07-22",
+          "count": 33
+        },
+        {
+          "date": "2026-07-23",
+          "count": 17
+        },
+        {
+          "date": "2026-07-24",
+          "count": 4
+        },
+        {
+          "date": "2026-07-25",
+          "count": 35
+        },
+        {
+          "date": "2026-07-26",
+          "count": 7
+        },
+        {
+          "date": "2026-07-27",
+          "count": 17
+        },
+        {
+          "date": "2026-07-28",
+          "count": 19
+        },
+        {
+          "date": "2026-07-29",
+          "count": 41
+        },
+        {
+          "date": "2026-07-30",
+          "count": 8
+        },
+        {
+          "date": "2026-07-31",
+          "count": 129
+        },
+        {
+          "date": "2026-08-01",
+          "count": 19
+        },
+        {
+          "date": "2026-08-02",
+          "count": 10
+        },
+        {
+          "date": "2026-08-03",
+          "count": 92
+        },
+        {
+          "date": "2026-08-04",
+          "count": 58
+        },
+        {
+          "date": "2026-08-05",
+          "count": 6
+        },
+        {
+          "date": "2026-08-06",
+          "count": 40
+        },
+        {
+          "date": "2026-08-07",
+          "count": 21
+        },
+        {
+          "date": "2026-08-08",
+          "count": 6
+        },
+        {
+          "date": "2026-08-09",
+          "count": 10
+        },
+        {
+          "date": "2026-08-10",
+          "count": 20
+        },
+        {
+          "date": "2026-08-11",
+          "count": 218
+        },
+        {
+          "date": "2026-08-12",
+          "count": 36
+        },
+        {
+          "date": "2026-08-13",
+          "count": 23
+        },
+        {
+          "date": "2026-08-14",
+          "count": 0
+        },
+        {
+          "date": "2026-08-15",
+          "count": 49
+        },
+        {
+          "date": "2026-08-16",
+          "count": 8
+        },
+        {
+          "date": "2026-08-17",
+          "count": 8
+        },
+        {
+          "date": "2026-08-18",
+          "count": 46
+        },
+        {
+          "date": "2026-08-19",
+          "count": 56
+        },
+        {
+          "date": "2026-08-20",
+          "count": 32
+        },
+        {
+          "date": "2026-08-21",
+          "count": 166
+        },
+        {
+          "date": "2026-08-22",
+          "count": 52
+        },
+        {
+          "date": "2026-08-23",
+          "count": 258
+        },
+        {
+          "date": "2026-08-24",
+          "count": 0
+        }
+      ],
+      "totals": {
+        "all": 3459,
+        "last_7_days": 610,
+        "last_30_days": 1455
+      },
+      "release": {
+        "tag": "v2.6.1",
+        "published_at": "2026-08-21T14:12:26Z",
+        "url": "https://github.com/AgoraIO/agora-agents-ts/releases/tag/v2.6.1",
+        "notes": "### Fixed\n\n- **Speechmatics credential field** — `SpeechmaticsSTT` now emits the REST-compatible `asr.params.key`. The `key` option is preferred; deprecated `apiKey` remains supported and is normalized to `key`."
+      }
+    },
+    {
+      "id": "pypi",
+      "name": "Python SDK",
+      "platform": "PyPI",
+      "package": "agora-agents",
+      "metric": "downloads",
+      "metric_label": "Downloads",
+      "version": "2.6.1",
+      "package_url": "https://pypi.org/project/agora-agents/",
+      "repository_url": "https://github.com/AgoraIO/agora-agents-python",
+      "data_source_url": "https://pepy.tech/projects/agora-agents",
+      "daily": [
+        {
+          "date": "2026-05-28",
+          "count": 450
+        },
+        {
+          "date": "2026-05-29",
+          "count": 156
+        },
+        {
+          "date": "2026-05-30",
+          "count": 114
+        },
+        {
+          "date": "2026-05-31",
+          "count": 67
+        },
+        {
+          "date": "2026-06-01",
+          "count": 46
+        },
+        {
+          "date": "2026-06-02",
+          "count": 73
+        },
+        {
+          "date": "2026-06-03",
+          "count": 653
+        },
+        {
+          "date": "2026-06-04",
+          "count": 186
+        },
+        {
+          "date": "2026-06-05",
+          "count": 377
+        },
+        {
+          "date": "2026-06-06",
+          "count": 158
+        },
+        {
+          "date": "2026-06-07",
+          "count": 133
+        },
+        {
+          "date": "2026-06-08",
+          "count": 99
+        },
+        {
+          "date": "2026-06-09",
+          "count": 50
+        },
+        {
+          "date": "2026-06-10",
+          "count": 68
+        },
+        {
+          "date": "2026-06-11",
+          "count": 509
+        },
+        {
+          "date": "2026-06-12",
+          "count": 446
+        },
+        {
+          "date": "2026-06-13",
+          "count": 295
+        },
+        {
+          "date": "2026-06-14",
+          "count": 366
+        },
+        {
+          "date": "2026-06-15",
+          "count": 695
+        },
+        {
+          "date": "2026-06-16",
+          "count": 341
+        },
+        {
+          "date": "2026-06-17",
+          "count": 616
+        },
+        {
+          "date": "2026-06-18",
+          "count": 1865
+        },
+        {
+          "date": "2026-06-19",
+          "count": 362
+        },
+        {
+          "date": "2026-06-20",
+          "count": 331
+        },
+        {
+          "date": "2026-06-21",
+          "count": 321
+        },
+        {
+          "date": "2026-06-22",
+          "count": 368
+        },
+        {
+          "date": "2026-06-23",
+          "count": 354
+        },
+        {
+          "date": "2026-06-24",
+          "count": 444
+        },
+        {
+          "date": "2026-06-25",
+          "count": 979
+        },
+        {
+          "date": "2026-06-26",
+          "count": 369
+        },
+        {
+          "date": "2026-06-27",
+          "count": 343
+        },
+        {
+          "date": "2026-06-28",
+          "count": 332
+        },
+        {
+          "date": "2026-06-29",
+          "count": 345
+        },
+        {
+          "date": "2026-06-30",
+          "count": 771
+        },
+        {
+          "date": "2026-07-01",
+          "count": 453
+        },
+        {
+          "date": "2026-07-02",
+          "count": 372
+        },
+        {
+          "date": "2026-07-03",
+          "count": 369
+        },
+        {
+          "date": "2026-07-04",
+          "count": 334
+        },
+        {
+          "date": "2026-07-05",
+          "count": 358
+        },
+        {
+          "date": "2026-07-06",
+          "count": 696
+        },
+        {
+          "date": "2026-07-07",
+          "count": 369
+        },
+        {
+          "date": "2026-07-08",
+          "count": 410
+        },
+        {
+          "date": "2026-07-09",
+          "count": 393
+        },
+        {
+          "date": "2026-07-10",
+          "count": 378
+        },
+        {
+          "date": "2026-07-11",
+          "count": 367
+        },
+        {
+          "date": "2026-07-12",
+          "count": 358
+        },
+        {
+          "date": "2026-07-13",
+          "count": 382
+        },
+        {
+          "date": "2026-07-14",
+          "count": 407
+        },
+        {
+          "date": "2026-07-15",
+          "count": 402
+        },
+        {
+          "date": "2026-07-16",
+          "count": 385
+        },
+        {
+          "date": "2026-07-17",
+          "count": 387
+        },
+        {
+          "date": "2026-07-18",
+          "count": 350
+        },
+        {
+          "date": "2026-07-19",
+          "count": 373
+        },
+        {
+          "date": "2026-07-20",
+          "count": 353
+        },
+        {
+          "date": "2026-07-21",
+          "count": 373
+        },
+        {
+          "date": "2026-07-22",
+          "count": 415
+        },
+        {
+          "date": "2026-07-23",
+          "count": 665
+        },
+        {
+          "date": "2026-07-24",
+          "count": 386
+        },
+        {
+          "date": "2026-07-25",
+          "count": 343
+        },
+        {
+          "date": "2026-07-26",
+          "count": 368
+        },
+        {
+          "date": "2026-07-27",
+          "count": 345
+        },
+        {
+          "date": "2026-07-28",
+          "count": 356
+        },
+        {
+          "date": "2026-07-29",
+          "count": 366
+        },
+        {
+          "date": "2026-07-30",
+          "count": 429
+        },
+        {
+          "date": "2026-07-31",
+          "count": 854
+        },
+        {
+          "date": "2026-08-01",
+          "count": 452
+        },
+        {
+          "date": "2026-08-02",
+          "count": 368
+        },
+        {
+          "date": "2026-08-03",
+          "count": 394
+        },
+        {
+          "date": "2026-08-04",
+          "count": 444
+        },
+        {
+          "date": "2026-08-05",
+          "count": 485
+        },
+        {
+          "date": "2026-08-06",
+          "count": 370
+        },
+        {
+          "date": "2026-08-07",
+          "count": 511
+        },
+        {
+          "date": "2026-08-08",
+          "count": 410
+        },
+        {
+          "date": "2026-08-09",
+          "count": 426
+        },
+        {
+          "date": "2026-08-10",
+          "count": 369
+        },
+        {
+          "date": "2026-08-11",
+          "count": 998
+        },
+        {
+          "date": "2026-08-12",
+          "count": 548
+        },
+        {
+          "date": "2026-08-13",
+          "count": 490
+        },
+        {
+          "date": "2026-08-14",
+          "count": 975
+        },
+        {
+          "date": "2026-08-15",
+          "count": 478
+        },
+        {
+          "date": "2026-08-16",
+          "count": 496
+        },
+        {
+          "date": "2026-08-17",
+          "count": 1404
+        },
+        {
+          "date": "2026-08-18",
+          "count": 709
+        },
+        {
+          "date": "2026-08-19",
+          "count": 564
+        },
+        {
+          "date": "2026-08-20",
+          "count": 629
+        },
+        {
+          "date": "2026-08-21",
+          "count": 1084
+        },
+        {
+          "date": "2026-08-22",
+          "count": 609
+        },
+        {
+          "date": "2026-08-23",
+          "count": 640
+        },
+        {
+          "date": "2026-08-24",
+          "count": 593
+        }
+      ],
+      "totals": {
+        "all": 40324,
+        "last_7_days": 4828,
+        "last_30_days": 17164
+      },
+      "release": {
+        "tag": "v2.6.1",
+        "published_at": "2026-08-21T14:28:19Z",
+        "url": "https://github.com/AgoraIO/agora-agents-python/releases/tag/v2.6.1",
+        "notes": "### Fixed\n\n- **Speechmatics credential field** — `SpeechmaticsSTT` now emits the REST-compatible `asr.params.key`. The `key` field is preferred; deprecated `api_key` remains supported, warns, and is normalized to `key`."
+      }
+    },
+    {
+      "id": "go",
+      "name": "Go SDK",
+      "platform": "GitHub",
+      "package": "AgoraIO/agora-agents-go",
+      "metric": "clones",
+      "metric_label": "Repository clones",
+      "version": "2.6.1",
+      "package_url": "https://github.com/AgoraIO/agora-agents-go",
+      "repository_url": "https://github.com/AgoraIO/agora-agents-go",
+      "data_source_url": "https://api.github.com/repos/AgoraIO/agora-agents-go/traffic/clones",
+      "daily": [
+        {
+          "date": "2026-08-11",
+          "count": 53
+        },
+        {
+          "date": "2026-08-12",
+          "count": 1
+        },
+        {
+          "date": "2026-08-13",
+          "count": 11
+        },
+        {
+          "date": "2026-08-14",
+          "count": 18
+        },
+        {
+          "date": "2026-08-15",
+          "count": 9
+        },
+        {
+          "date": "2026-08-16",
+          "count": 10
+        },
+        {
+          "date": "2026-08-17",
+          "count": 1
+        },
+        {
+          "date": "2026-08-18",
+          "count": 6
+        },
+        {
+          "date": "2026-08-19",
+          "count": 22
+        },
+        {
+          "date": "2026-08-20",
+          "count": 51
+        },
+        {
+          "date": "2026-08-21",
+          "count": 86
+        },
+        {
+          "date": "2026-08-22",
+          "count": 9
+        },
+        {
+          "date": "2026-08-23",
+          "count": 1
+        },
+        {
+          "date": "2026-08-24",
+          "count": 12
+        }
+      ],
+      "totals": {
+        "all": 290,
+        "last_7_days": 187,
+        "last_30_days": 290
+      },
+      "unique_cloners_14_days": 137,
+      "release": {
+        "tag": "v2.6.1",
+        "published_at": "2026-08-21T13:22:06Z",
+        "url": "https://github.com/AgoraIO/agora-agents-go/releases/tag/v2.6.1",
+        "notes": "### Fixed\n\n- **Speechmatics credential field** — `SpeechmaticsSTT` now emits the REST-compatible `asr.params.key`. `SpeechmaticsSTTOptions.Key` is preferred; the deprecated `APIKey` field remains supported and is normalized to `key`."
+      }
+    }
+  ]
+}
