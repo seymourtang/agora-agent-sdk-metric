@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-25T10:00:12.217Z",
+  "generated_at": "2026-08-26T02:40:14.367Z",
   "timezone": "UTC",
   "sdks": [
     {
@@ -366,12 +366,16 @@
         {
           "date": "2026-08-23",
           "count": 258
+        },
+        {
+          "date": "2026-08-24",
+          "count": 50
         }
       ],
       "totals": {
-        "all": 3459,
-        "last_7_days": 618,
-        "last_30_days": 1490
+        "all": 3509,
+        "last_7_days": 660,
+        "last_30_days": 1505
       },
       "release": {
         "tag": "v2.6.1",
