@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-27T02:56:58.188Z",
+  "generated_at": "2026-08-27T11:13:00.913Z",
   "timezone": "UTC",
   "sdks": [
     {
@@ -779,12 +779,16 @@
         {
           "date": "2026-08-25",
           "count": 449
+        },
+        {
+          "date": "2026-08-26",
+          "count": 1297
         }
       ],
       "totals": {
-        "all": 40773,
-        "last_7_days": 4568,
-        "last_30_days": 17245
+        "all": 42070,
+        "last_7_days": 5301,
+        "last_30_days": 18197
       },
       "release": {
         "tag": "v2.7.2",
@@ -884,14 +888,18 @@
         {
           "date": "2026-08-25",
           "count": 7
+        },
+        {
+          "date": "2026-08-26",
+          "count": 46
         }
       ],
       "totals": {
-        "all": 297,
-        "last_7_days": 188,
-        "last_30_days": 297
+        "all": 343,
+        "last_7_days": 212,
+        "last_30_days": 343
       },
-      "unique_cloners_14_days": 118,
+      "unique_cloners_14_days": 141,
       "release": {
         "tag": "v2.7.0",
         "published_at": "2026-08-26T20:21:22Z",
