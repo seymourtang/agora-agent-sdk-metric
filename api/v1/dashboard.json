@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-26T02:40:14.367Z",
+  "generated_at": "2026-08-27T02:56:58.188Z",
   "timezone": "UTC",
   "sdks": [
     {
@@ -10,7 +10,7 @@
       "package": "agora-agents",
       "metric": "downloads",
       "metric_label": "Downloads",
-      "version": "2.6.1",
+      "version": "2.7.0",
       "package_url": "https://www.npmjs.com/package/agora-agents",
       "repository_url": "https://github.com/AgoraIO/agora-agents-ts",
       "data_source_url": "https://api.npmjs.org/downloads/range/last-month/agora-agents",
@@ -370,20 +370,30 @@
         {
           "date": "2026-08-24",
           "count": 50
+        },
+        {
+          "date": "2026-08-25",
+          "count": 43
         }
       ],
       "totals": {
-        "all": 3509,
-        "last_7_days": 660,
-        "last_30_days": 1505
+        "all": 3552,
+        "last_7_days": 657,
+        "last_30_days": 1541
       },
       "release": {
-        "tag": "v2.6.1",
-        "published_at": "2026-08-21T14:12:26Z",
-        "url": "https://github.com/AgoraIO/agora-agents-ts/releases/tag/v2.6.1",
-        "notes": "### Fixed\n\n- **Speechmatics credential field** — `SpeechmaticsSTT` now emits the REST-compatible `asr.params.key`. The `key` option is preferred; deprecated `apiKey` remains supported and is normalized to `key`."
+        "tag": "v2.7.0",
+        "published_at": "2026-08-26T20:37:03Z",
+        "url": "https://github.com/AgoraIO/agora-agents-ts/releases/tag/v2.7.0",
+        "notes": "### Added\n\n- **Preview endpoint support** — `AgoraClient` detects preview vendors from the resolved session body and routes only that session to the preview gateway with a pinned `agora-feature` header.\n- **Gemini preview ASR** — `GeminiSTT` (`gemini-3.5-transcribe-live`), a cascading ASR stage served only by the preview gateway.\n- **Gemini ASR language selection** — `languageCodes` serializes to `params.language_codes`, replacing the singular `params.language` this vendor previously sent. Omitted from the request when unset, which is how the provider spells auto-detect. `GeminiSTT` has no `language` option: the top-level `asr.language` comes from `turnDetection.language`, as it does for every STT vendor.\n- **Gemini ASR custom vocabulary** — `customVocabulary` biases recognition toward supplied words and phrases via `params.custom_vocabulary`. Omitted from the request when unset.\n- **Session-scoped routing** — GA sessions and direct client calls, including `stopAgent()`, remain on regional production endpoints.\n- **Debug redaction** — `redactSecrets` and `redactHeadersForDebug` replace vendor API keys, RTC tokens, and the App ID with `[REDACTED]` in `debug: true` output. Empty strings stay visible so an unset environment variable remains diagnosable. Neither mutates its input.\n- **Gemini ASR typing** — `SttConfig` accepts `vendor: \"gemini\"`; the generated `Asr` union models production vendors only.\n\n### Fixed\n\n- **Gemini ASR parameter compatibility** — `wordTimestamp` is now omitted unless explicitly set. Enabling it together with `customVocabulary` fails locally instead of sending a combination Gemini does not support.\n- **Malformed credentials no longer produce an empty token** — `agora-token` returns `\"\"` rather than throwing when `appId` or `appCertificate` is not exactly 32 characters, so a value with a trailing newline or a truncated paste was sent as `token: \"\"` and failed at the gateway with an error naming neither field. The token builders now throw locally and say which field is the wrong length. Credential values are never included in the message.\n\n### Documentation\n\n- Added [Preview Endpoint](docs/guides/preview-endpoint.md), covering the gate header, intake-node failure signatures, and how to add a future preview family.\n- Documented every field `Agent.toProperties` injects into a vendor config, and why a preview provider must be verified against the resolved request body rather than the vendor class output — a value written under a spelling the route ignores fails silently."
       },
       "releases": [
+        {
+          "tag": "v2.7.0",
+          "published_at": "2026-08-26T20:37:03Z",
+          "url": "https://github.com/AgoraIO/agora-agents-ts/releases/tag/v2.7.0",
+          "notes": "### Added\n\n- **Preview endpoint support** — `AgoraClient` detects preview vendors from the resolved session body and routes only that session to the preview gateway with a pinned `agora-feature` header.\n- **Gemini preview ASR** — `GeminiSTT` (`gemini-3.5-transcribe-live`), a cascading ASR stage served only by the preview gateway.\n- **Gemini ASR language selection** — `languageCodes` serializes to `params.language_codes`, replacing the singular `params.language` this vendor previously sent. Omitted from the request when unset, which is how the provider spells auto-detect. `GeminiSTT` has no `language` option: the top-level `asr.language` comes from `turnDetection.language`, as it does for every STT vendor.\n- **Gemini ASR custom vocabulary** — `customVocabulary` biases recognition toward supplied words and phrases via `params.custom_vocabulary`. Omitted from the request when unset.\n- **Session-scoped routing** — GA sessions and direct client calls, including `stopAgent()`, remain on regional production endpoints.\n- **Debug redaction** — `redactSecrets` and `redactHeadersForDebug` replace vendor API keys, RTC tokens, and the App ID with `[REDACTED]` in `debug: true` output. Empty strings stay visible so an unset environment variable remains diagnosable. Neither mutates its input.\n- **Gemini ASR typing** — `SttConfig` accepts `vendor: \"gemini\"`; the generated `Asr` union models production vendors only.\n\n### Fixed\n\n- **Gemini ASR parameter compatibility** — `wordTimestamp` is now omitted unless explicitly set. Enabling it together with `customVocabulary` fails locally instead of sending a combination Gemini does not support.\n- **Malformed credentials no longer produce an empty token** — `agora-token` returns `\"\"` rather than throwing when `appId` or `appCertificate` is not exactly 32 characters, so a value with a trailing newline or a truncated paste was sent as `token: \"\"` and failed at the gateway with an error naming neither field. The token builders now throw locally and say which field is the wrong length. Credential values are never included in the message.\n\n### Documentation\n\n- Added [Preview Endpoint](docs/guides/preview-endpoint.md), covering the gate header, intake-node failure signatures, and how to add a future preview family.\n- Documented every field `Agent.toProperties` injects into a vendor config, and why a preview provider must be verified against the resolved request body rather than the vendor class output — a value written under a spelling the route ignores fails silently."
+        },
         {
           "tag": "v2.6.1",
           "published_at": "2026-08-21T14:12:26Z",
@@ -395,12 +405,6 @@
           "published_at": "2026-08-11T02:28:43Z",
           "url": "https://github.com/AgoraIO/agora-agents-ts/releases/tag/v2.6.0",
           "notes": "### Added\n\n- **Azure OpenAI Realtime MLLM** — `AzureOpenAIRealtime` emits `mllm.vendor: \"azure\"` and supports `maxHistory`, serialized as the new `max_history` field on the MLLM config.\n- **Qwen Omni Realtime MLLM (Chinese mainland)** — `QwenOmni` emits `mllm.vendor: \"qwen_omni\"`, alongside the new `BaseCNMLLM` base class and `GlobalMllmVendor` / `CNMllmVendor` region types. `Agent.withMllm()` now accepts `GlobalMllmVendor | CNMllmVendor` instead of `BaseMLLM`, so region mismatches are caught at compile time.\n- **Typecast TTS** — `TypecastTTS` vendor taking `apiKey`, `voiceId`, and `model`, with generated `TypecastTts` / `TypecastTtsParams` core types.\n- **ASR hotwords** — `keywords` on `AresSTT` and on `FengmingSTT` via the new `FengmingSTTOptions`, serialized as `asr.params.keywords`.\n- **Configurable API base URL** — setting `AGORA_AGENTS_API_BASE_URL` pins `AgoraClient` to that host (with the area-appropriate API path appended) and opts the client out of regional failover.\n\n### Changed\n\n- **AssemblyAI STT WebSocket URL** — `AssemblyAISTTOptions.uri` is renamed to `ws_url` and now serializes as `asr.params.ws_url`. This is a breaking rename; callers passing `uri` must update the option name.\n- **Qwen Omni options** — `url` is required and `turnDetection` is optional on `QwenOmniOptions`.\n- **Generated core refresh** — regenerated from the latest API schema (`fern-typescript-node-sdk` 3.31.1), typing `FengmingAsr.params` and `AresAsrParams` instead of leaving them as open records."
-        },
-        {
-          "tag": "v2.5.0",
-          "published_at": "2026-07-30T16:42:57Z",
-          "url": "https://github.com/AgoraIO/agora-agents-ts/releases/tag/v2.5.0",
-          "notes": "Release v2.5.0"
         }
       ]
     },
@@ -411,7 +415,7 @@
       "package": "agora-agents",
       "metric": "downloads",
       "metric_label": "Downloads",
-      "version": "2.6.1",
+      "version": "2.7.2",
       "package_url": "https://pypi.org/project/agora-agents/",
       "repository_url": "https://github.com/AgoraIO/agora-agents-python",
       "data_source_url": "https://pepy.tech/projects/agora-agents",
@@ -771,37 +775,41 @@
         {
           "date": "2026-08-24",
           "count": 593
+        },
+        {
+          "date": "2026-08-25",
+          "count": 449
         }
       ],
       "totals": {
-        "all": 40324,
-        "last_7_days": 4828,
-        "last_30_days": 17164
+        "all": 40773,
+        "last_7_days": 4568,
+        "last_30_days": 17245
       },
       "release": {
-        "tag": "v2.6.1",
-        "published_at": "2026-08-21T14:28:19Z",
-        "url": "https://github.com/AgoraIO/agora-agents-python/releases/tag/v2.6.1",
-        "notes": "### Fixed\n\n- **Speechmatics credential field** — `SpeechmaticsSTT` now emits the REST-compatible `asr.params.key`. The `key` field is preferred; deprecated `api_key` remains supported, warns, and is normalized to `key`."
+        "tag": "v2.7.2",
+        "published_at": "2026-08-26T21:08:02Z",
+        "url": "https://github.com/AgoraIO/agora-agents-python/releases/tag/v2.7.2",
+        "notes": "### Changed\n\n- **Release metadata refresh** — Updated package and compatibility metadata for the `2.7.2` release line.\n\n### Documentation\n\n- **Changelog update** — Added release entry for `v2.7.2`."
       },
       "releases": [
+        {
+          "tag": "v2.7.2",
+          "published_at": "2026-08-26T21:08:02Z",
+          "url": "https://github.com/AgoraIO/agora-agents-python/releases/tag/v2.7.2",
+          "notes": "### Changed\n\n- **Release metadata refresh** — Updated package and compatibility metadata for the `2.7.2` release line.\n\n### Documentation\n\n- **Changelog update** — Added release entry for `v2.7.2`."
+        },
+        {
+          "tag": "v2.7.0",
+          "published_at": "2026-08-26T20:46:36Z",
+          "url": "https://github.com/AgoraIO/agora-agents-python/releases/tag/v2.7.0",
+          "notes": "### Added\n\n- **Preview endpoint support** — `Agora` and `AsyncAgora` detect preview features from each resolved session body, then pin that session's requests to the preview gateway and `agora-feature` header without mutating the production client.\n- **Gemini preview ASR** — `GeminiSTT` (`gemini-3.5-transcribe-live`), under `agora_agent.agentkit.preview`, a cascading ASR stage served only by the preview gateway.\n- **Gemini ASR language selection** — `language_codes` serializes to `params.language_codes`, replacing the singular `params.language` this vendor previously sent. Omitted from the request when unset, which is how the provider spells auto-detect. `GeminiSTT` has no `language` argument: the top-level `asr.language` comes from turn detection, as it does for every STT vendor.\n- **Gemini ASR custom vocabulary** — `custom_vocabulary` biases recognition toward supplied words and phrases via `params.custom_vocabulary`. Omitted from the request when unset.\n- **Session-scoped routing** — GA sessions remain on the production regional endpoint, while preview session lifecycle calls use the preview endpoint. Top-level `stop_agent()` remains production-only.\n- **Debug redaction** — `redact_secrets` replaces vendor API keys, RTC tokens, and the App ID with `[REDACTED]`. Empty strings stay visible so an unset environment variable remains diagnosable.\n\n### Fixed\n\n- **Gemini ASR parameter compatibility** — `word_timestamp` is now omitted unless explicitly set. Enabling it together with `custom_vocabulary` fails locally instead of sending a combination Gemini does not support.\n- **Debug logging leaked credentials** — the httpx debug hook logged raw request bodies, so vendor API keys and RTC tokens reached the log unredacted. Bodies are now JSON-decoded and redacted; a non-JSON body is described by size rather than echoed.\n- **Malformed credentials are rejected before signing** — the Python signing path HMACs whatever it is given, so an `app_id` or `app_certificate` with a trailing newline or a truncated paste produced a well-formed token that the gateway rejected with an error naming neither field. `generate_rtc_token` and `generate_convo_ai_token` now raise `ValueError` and say which field is the wrong length. Credential values are never included in the message.\n- **Preview vendors reject an empty API key** — `GeminiSTT(api_key=\"\")` previously accepted the empty string and sent it as a blank credential. It now fails at construction, matching the TypeScript and Go vendors.\n\n### Changed\n\n- **Preview configs bypass request validation** — the generated request models mirror what production serves, so `asr.vendor = \"gemini\"` fails validation. Configs that `required_preview_features()` recognises are now passed through unvalidated, with `None` entries stripped so the bypass puts the same bytes on the wire as the typed path. Production configs are unaffected.\n\n### Documentation\n\n- Added [Preview Endpoint](docs/guides/preview-endpoint.md), covering the gate header, intake-node failure signatures, the validation bypass, and how to add a future preview family.\n- Documented every field `Agent.to_properties` injects into a vendor config, and why a preview provider must be verified against the resolved request body rather than the vendor class output — a value written under a spelling the route ignores fails silently."
+        },
         {
           "tag": "v2.6.1",
           "published_at": "2026-08-21T14:28:19Z",
           "url": "https://github.com/AgoraIO/agora-agents-python/releases/tag/v2.6.1",
           "notes": "### Fixed\n\n- **Speechmatics credential field** — `SpeechmaticsSTT` now emits the REST-compatible `asr.params.key`. The `key` field is preferred; deprecated `api_key` remains supported, warns, and is normalized to `key`."
-        },
-        {
-          "tag": "v2.6.0",
-          "published_at": "2026-08-11T02:13:18Z",
-          "url": "https://github.com/AgoraIO/agora-agents-python/releases/tag/v2.6.0",
-          "notes": "### Added\n\n- **Azure OpenAI Realtime MLLM** — `AzureOpenAIRealtime` (`mllm.vendor`: `azure`), including `max_history` for caching conversation history messages.\n- **Qwen Omni Realtime MLLM (CN)** — `QwenOmni` (`mllm.vendor`: `qwen_omni`), exported from `agora_agent.cn`.\n- **MLLM support in AgentKit vendor namespaces** — Global and CN vendor catalogs now expose an `mllm` namespace, MLLM vendors are validated against the client area, and `CNAgent`/`GlobalAgent` expose typed `with_mllm()`.\n- **Typecast TTS** — `TypecastTTS` (`tts.vendor`: `typecast`).\n- **ASR hotwords** — `keywords` on `AresSTT` and `FengmingSTT`, serialized as `asr.params.keywords`, with a typed `FengmingAsrParams` model replacing the untyped Fengming params dict.\n- **Configurable API base URL** — Setting `AGORA_AGENTS_API_BASE_URL` overrides regional domain selection; when set, the domain pool skips DNS-based domain selection and region cycling and always uses the configured base URL.\n\n### Changed\n\n- **AssemblyAI STT WebSocket URL** — `AssemblyAISTT.uri` and `AssemblyAiAsrParams.uri` are renamed to `ws_url`, and the field is serialized as `asr.params.ws_url`. This is a breaking rename for callers that set `uri`.\n- **Generated model aliasing** — Wire-key aliases (`VoiceSelectionParams`, `AudioConfig`, `voiceId`, `modelId`, `appId`, `sceneList`) now use native pydantic field aliases with population by field name, instead of annotation-metadata conversion on every request and response."
-        },
-        {
-          "tag": "v2.5.0",
-          "published_at": "2026-07-30T16:44:31Z",
-          "url": "https://github.com/AgoraIO/agora-agents-python/releases/tag/v2.5.0",
-          "notes": "Release v2.5.0"
         }
       ]
     },
@@ -812,7 +820,7 @@
       "package": "AgoraIO/agora-agents-go",
       "metric": "clones",
       "metric_label": "Repository clones",
-      "version": "2.6.1",
+      "version": "2.7.0",
       "package_url": "https://github.com/AgoraIO/agora-agents-go",
       "repository_url": "https://github.com/AgoraIO/agora-agents-go",
       "data_source_url": "https://api.github.com/repos/AgoraIO/agora-agents-go/traffic/clones",
@@ -872,21 +880,31 @@
         {
           "date": "2026-08-24",
           "count": 12
+        },
+        {
+          "date": "2026-08-25",
+          "count": 7
         }
       ],
       "totals": {
-        "all": 290,
-        "last_7_days": 187,
-        "last_30_days": 290
+        "all": 297,
+        "last_7_days": 188,
+        "last_30_days": 297
       },
-      "unique_cloners_14_days": 137,
+      "unique_cloners_14_days": 118,
       "release": {
-        "tag": "v2.6.1",
-        "published_at": "2026-08-21T13:22:06Z",
-        "url": "https://github.com/AgoraIO/agora-agents-go/releases/tag/v2.6.1",
-        "notes": "### Fixed\n\n- **Speechmatics credential field** — `SpeechmaticsSTT` now emits the REST-compatible `asr.params.key`. `SpeechmaticsSTTOptions.Key` is preferred; the deprecated `APIKey` field remains supported and is normalized to `key`."
+        "tag": "v2.7.0",
+        "published_at": "2026-08-26T20:21:22Z",
+        "url": "https://github.com/AgoraIO/agora-agents-go/releases/tag/v2.7.0",
+        "notes": "### Added\n\n- **Automatic preview routing** — `NewAgoraClient` detects preview providers from the resolved start body and binds preview routing to that session.\n- **Gemini preview ASR** — `NewGeminiSTT` (`gemini-3.5-transcribe-live`), a cascading ASR stage served only by the preview gateway.\n- **Gemini ASR language selection** — `LanguageCodes` serializes to `params.language_codes`, replacing the singular `params.language` this vendor previously sent. Omitted from the request when nil, which is how the provider spells auto-detect. `GeminiSTTOptions` has no `Language` field: the top-level `asr.language` comes from turn detection, as it does for every STT vendor.\n- **Gemini ASR custom vocabulary** — `CustomVocabulary` biases recognition toward supplied words and phrases via `params.custom_vocabulary`. Omitted from the request when nil.\n- **Session-scoped preview state** — preview routing follows every session lifecycle request, while GA sessions and `StopAgent` remain on production routing.\n- **Debug redaction** — `RedactSecrets` replaces vendor API keys, RTC tokens, and the App ID with `[REDACTED]` in `Debug: true` output. Empty strings stay visible so an unset environment variable remains diagnosable.\n\n### Fixed\n\n- **Gemini ASR parameter compatibility** — `WordTimestamp` is now omitted unless explicitly set. Enabling it together with `CustomVocabulary` fails locally instead of sending a combination Gemini does not support.\n\n### Notes\n\n- The gate header is applied in a wrapped `core.HTTPClient` rather than via `option.WithHTTPHeader`, so header-map replacement cannot drop it. A custom `HTTPClient` passed to `AgoraClientOptions` is wrapped for preview sessions.\n\n### Documentation\n\n- Added [Preview Endpoint](docs/guides/preview-endpoint.md), covering the gate header, intake-node failure signatures, and how to add a future preview family.\n- Documented every key the shared builder injects into a vendor config map, and why a preview provider must be verified against the resolved request body rather than the vendor constructor output — a value written under a spelling the route ignores fails silently."
       },
       "releases": [
+        {
+          "tag": "v2.7.0",
+          "published_at": "2026-08-26T20:21:22Z",
+          "url": "https://github.com/AgoraIO/agora-agents-go/releases/tag/v2.7.0",
+          "notes": "### Added\n\n- **Automatic preview routing** — `NewAgoraClient` detects preview providers from the resolved start body and binds preview routing to that session.\n- **Gemini preview ASR** — `NewGeminiSTT` (`gemini-3.5-transcribe-live`), a cascading ASR stage served only by the preview gateway.\n- **Gemini ASR language selection** — `LanguageCodes` serializes to `params.language_codes`, replacing the singular `params.language` this vendor previously sent. Omitted from the request when nil, which is how the provider spells auto-detect. `GeminiSTTOptions` has no `Language` field: the top-level `asr.language` comes from turn detection, as it does for every STT vendor.\n- **Gemini ASR custom vocabulary** — `CustomVocabulary` biases recognition toward supplied words and phrases via `params.custom_vocabulary`. Omitted from the request when nil.\n- **Session-scoped preview state** — preview routing follows every session lifecycle request, while GA sessions and `StopAgent` remain on production routing.\n- **Debug redaction** — `RedactSecrets` replaces vendor API keys, RTC tokens, and the App ID with `[REDACTED]` in `Debug: true` output. Empty strings stay visible so an unset environment variable remains diagnosable.\n\n### Fixed\n\n- **Gemini ASR parameter compatibility** — `WordTimestamp` is now omitted unless explicitly set. Enabling it together with `CustomVocabulary` fails locally instead of sending a combination Gemini does not support.\n\n### Notes\n\n- The gate header is applied in a wrapped `core.HTTPClient` rather than via `option.WithHTTPHeader`, so header-map replacement cannot drop it. A custom `HTTPClient` passed to `AgoraClientOptions` is wrapped for preview sessions.\n\n### Documentation\n\n- Added [Preview Endpoint](docs/guides/preview-endpoint.md), covering the gate header, intake-node failure signatures, and how to add a future preview family.\n- Documented every key the shared builder injects into a vendor config map, and why a preview provider must be verified against the resolved request body rather than the vendor constructor output — a value written under a spelling the route ignores fails silently."
+        },
         {
           "tag": "v2.6.1",
           "published_at": "2026-08-21T13:22:06Z",
@@ -898,12 +916,6 @@
           "published_at": "2026-08-11T02:15:01Z",
           "url": "https://github.com/AgoraIO/agora-agents-go/releases/tag/v2.6.0",
           "notes": "### Added\n\n- **Azure OpenAI Realtime MLLM** — `vendors.NewAzureOpenAIRealtime` configures Azure-hosted realtime sessions (`mllm.vendor`: `\"azure\"`) with model, voice, instructions, output modalities, and greeting support.\n- **Qwen Omni MLLM (mainland China)** — `cn/vendors.NewQwenOmni` (`mllm.vendor`: `\"qwen_omni\"`), plus `cn.Agent.WithMllm` and the `cn/vendors.MLLM` alias, so mainland China agents can run realtime MLLM pipelines.\n- **Typecast TTS** — `vendors.NewTypecastTTS` (`tts.vendor`: `\"typecast\"`) with `SkipPatterns` and passthrough `AdditionalParams`.\n- **Ares ASR** — `vendors.NewAresSTT`, the Agora-managed global ASR provider, with optional `Keywords` hints.\n- **Fengming keyword hints** — `cn/vendors.NewFengmingSTT` now accepts an optional `FengmingSTTOptions` with `Keywords` and `AdditionalParams`; the existing no-argument call still works.\n- **Configurable API base URL** — Setting `AGORA_AGENTS_API_BASE_URL` pins the client to a fixed base URL, bypassing DNS-based domain selection and region cycling. The area-specific Conversational AI path suffix is still appended.\n\n### Changed\n\n- **AssemblyAI ASR** — `AssemblyAISTTOptions.URI` is renamed to `WsURL` and now serializes as `asr.params.ws_url` instead of `asr.params.uri`. Callers setting `URI` must rename the field.\n- **Generated core refresh** — Regenerated core types for the latest Conversational AI schema, adding `AresAsrParams`, `FengmingAsrParams`, `TypecastTts`, and the `azure` and `qwen_omni` MLLM vendors.\n- **MLLM routing docs** — `docs/guides/regional-routing.md` documents the MLLM package boundary: the global Azure constructor belongs to the global `agentkit` client and Qwen Omni to the `agentkit/cn` facade."
-        },
-        {
-          "tag": "v2.5.0",
-          "published_at": "2026-07-30T16:43:29Z",
-          "url": "https://github.com/AgoraIO/agora-agents-go/releases/tag/v2.5.0",
-          "notes": "Release v2.5.0"
         }
       ]
     }
